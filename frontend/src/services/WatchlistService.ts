@@ -1,0 +1,42 @@
+class WatchlistService {
+    private API_URL = 'http://localhost:8000'
+
+    async fetchWatchlist() {
+        try {
+            const response = await fetch(`${this.API_URL}/api/v1/watchlist`);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`)
+            }
+
+            const data = await response.json().catch(() => {
+                throw new Error("Invalid JSON response");
+            });
+
+            return data;
+        } catch (error) {
+            console.error("Failed to fetch watchlist:", error);
+            return null;
+        }
+    }
+
+    async filterTickerDropdown(ticker: string) {
+        try {
+            const response = await fetch(``);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`)
+            }
+
+            const data = await response.json().catch(() => {
+                throw new Error("Invalid JSON response");
+            });
+
+            return data;
+
+        } catch (error) {
+            console.error("Failed to fetch filtered tickers:", error);
+            return null;
+        }
+    }
+}
+
+export default new WatchlistService;
