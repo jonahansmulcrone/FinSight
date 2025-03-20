@@ -3,7 +3,7 @@ class WatchlistService {
 
     async fetchWatchlist() {
         try {
-            const response = await fetch(`${this.API_URL}/api/v1/watchlist`);
+            const response = await fetch(`${this.API_URL}/api/v1/batch_watchlist`);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`)
             }

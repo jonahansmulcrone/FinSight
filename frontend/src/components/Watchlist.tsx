@@ -24,7 +24,7 @@ const WatchList: React.FC = () => {
             }
         }
 
-        //fetchData();
+        fetchData();
     }, [])
 
     useOutsideClick(ref, () => setIsSearchingTicker(false));
