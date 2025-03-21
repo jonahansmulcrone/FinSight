@@ -30,22 +30,11 @@ const WatchList: React.FC = () => {
     useOutsideClick(ref, () => setIsSearchingTicker(false));
 
     const tickers = [
-        // Technology
-        "AAPL", "MSFT", "NVDA", "GOOG", "GOOGL", "META", "TSLA", "AMD", "INTC", "ORCL",
-
-        // Financials
-        "JPM", "BAC", "WFC", "GS", "MS", "C", "V", "MA", "PYPL", "AXP",
-
-        // Healthcare
-        "UNH", "JNJ", "PFE", "MRNA", "LLY", "BMY", "GILD", "CVS", "VRTX", "BIIB",
-
-        // Consumer Discretionary
-        "AMZN", "HD", "NKE", "SBUX", "MCD", "TSCO", "TJX", "LOW", "TGT", "ROST",
-
-        // Energy
-        "XOM", "CVX", "COP", "PSX", "SLB",
-
-        // Industrials
+        "AAPL", "MSFT", "NVDA", "GOOG", "GOOGL", "META", "TSLA", "AMD",
+        "INTC", "ORCL", "JPM", "BAC", "WFC", "GS", "MS", "C", "V", "MA",
+        "PYPL", "AXP", "UNH", "JNJ", "PFE", "MRNA", "LLY", "BMY", "GILD",
+        "CVS", "VRTX", "BIIB", "AMZN", "HD", "NKE", "SBUX", "MCD", "TSCO",
+        "TJX", "LOW", "TGT", "ROST", "XOM", "CVX", "COP", "PSX", "SLB",
         "BA", "CAT", "LMT", "UPS", "DE"
     ];
 
@@ -98,7 +87,12 @@ const WatchList: React.FC = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="black" className="size-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                             </svg>
-                            <input onChange={handleTickerChange} className='w-full rounded-md border-0 text-md text-black focus:outline-none focus:ring-0 focus:border-transparent' type='text' placeholder='Sybmol or Company Name '></input>
+                            <input
+                                onChange={handleTickerChange}
+                                className="w-full rounded-md border-0 text-base text-gray-400 placeholder-gray-400 placeholder:text-md focus:outline-none focus:ring-0 focus:border-transparent"
+                                type="text"
+                                placeholder="Symbol or Company Name"
+                            />
                         </div>
                         {filteredTickers && (
                             <div className='absolute top-full left-0 w-full bg-white border-t-1 border-gray-100 z-50'>
