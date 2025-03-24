@@ -6,11 +6,12 @@ import TickerDropdown from './TickerDropdownItem';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const WatchList: React.FC = () => {
-    const [watchlistItems, setWatchlistItems] = useState<WatchlistData>();
+    const [watchlistItems, setWatchlistItems] = useState<any>();
     const [isCustomizing, setIsCustomizing] = useState(false);
     const [isSearchingTicker, setIsSearchingTicker] = useState(false);
     const [currentTicker, setCurrentTicker] = useState('');
     const [filteredTickers, setFilteredTickers] = useState<string[]>([]);
+    const [error, setError] = useState('');
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -68,6 +69,16 @@ const WatchList: React.FC = () => {
         setCurrentTicker(value);
     }
 
+    const handleAddTicker = (ticker: string) => {
+        const tickersLength = Object.keys(watchlistItems.tickers).length
+        if (tickersLength >= 5) {
+            setError('Maximum number of Watchlist Items reached.')
+            setTimeout(() => {
+                setError('')
+            }, 5000)
+        }
+    }
+
     return (
         <div>
             <div ref={ref} className='flex-col justify-items-start w-sm bg-white border-1 border-solid border-gray-200 border-b-0 p-4'>
@@ -98,10 +109,14 @@ const WatchList: React.FC = () => {
                             <div className='absolute top-full left-0 w-full bg-white border-t-1 border-gray-100 z-50'>
                                 <div className='border-t-1 border-gray-100'></div>
                                 {filteredTickers.map((ticker) =>
-                                    <TickerDropdown ticker={ticker} />
+                                    <TickerDropdown ticker={ticker} handleAddTicker={handleAddTicker} />
                                 )}
 
-                                <div className='drop-shadow-lg border-b-1 rounded-b-2xl h-5'></div>
+                                <div className='drop-shadow-lg border-b-1 rounded-b-2xl h-5'>
+                                    {error && (
+                                        <p className='text-red-600'>{error}</p>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
