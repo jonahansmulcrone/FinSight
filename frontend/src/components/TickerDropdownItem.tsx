@@ -9,7 +9,7 @@ const TickerDropdownItem: React.FC<TickerDropdownItemProps> = ({ ticker, handleA
                         {ticker}
                     </div>
                     <div className="text-black text-xs">
-                        Name of Stock
+                        {ticker}
                     </div>
                 </div>
 
