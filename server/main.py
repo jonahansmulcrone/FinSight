@@ -41,7 +41,7 @@ async def get_watchlist(
 ):
     cache = r.get('user_1')
 
-    if False:
+    if cache:
         print('cache hit')
         cached_data = json.loads(cache)
         return WatchlistDataResponse(
@@ -83,7 +83,6 @@ async def get_watchlist(
 
                     response.raise_for_status()
                     data = response.json()
-                    #print(data)
                     
                     if "results" not in data or not data["results"]:
                         return {
@@ -133,12 +132,10 @@ async def get_watchlist(
                 }
             
             except httpx.HTTPStatusError as e:
-                print(e)
                 return {
                     "error": f"HTTP error: {e.response.status_code} - {e.response.text}"
                 }
             except Exception as e:
-                print(e)
                 return {
                     
                     "error": str(e)
