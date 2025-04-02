@@ -4,7 +4,7 @@ import { ApexOptions } from "apexcharts";
 
 const WatchListChart: React.FC<any> = ({ ticker, data, isCustomizing }) => {
 
-    const companyNameLength = 8
+    const companyNameLength = 12
 
     const cut_str = (str: string, n: number) => 
     {
@@ -20,6 +20,7 @@ const WatchListChart: React.FC<any> = ({ ticker, data, isCustomizing }) => {
         }
         return data.data.map((item: { close: number }) => item.close);
     };
+    
     const closingPrice = data.data?.[data.data.length - 1]?.close.toFixed(2);
     const openingPrice = data.data?.[0]?.close.toFixed(2);
 
@@ -122,8 +123,10 @@ const WatchListChart: React.FC<any> = ({ ticker, data, isCustomizing }) => {
                     <div className="text-black font-bold text-sm">
                         {ticker}
                     </div>
-                    <div className="text-black text-xs">
-                        {cut_str(data.name, companyNameLength)}
+                    <div className="text-xs text-transparent bg-clip-text bg-gradient-to-l from-gray-50 to-black z-0">
+                        {data.name && (
+                            cut_str(data.name, companyNameLength)
+                        )}
                     </div>
                 </div>
                 <ReactApexChart
