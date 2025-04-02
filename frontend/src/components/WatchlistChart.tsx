@@ -4,13 +4,22 @@ import { ApexOptions } from "apexcharts";
 
 const WatchListChart: React.FC<any> = ({ ticker, data, isCustomizing }) => {
 
+    const companyNameLength = 8
+
+    const cut_str = (str: string, n: number) => 
+    {
+        if (str.length > n){
+            return str.substring(0, n);
+        }
+        return str
+    }
+
     const prices = (data: any) => {
         if (!data.data || data.data.length === 0) {
             return [];
         }
         return data.data.map((item: { close: number }) => item.close);
     };
-
     const closingPrice = data.data?.[data.data.length - 1]?.close.toFixed(2);
     const openingPrice = data.data?.[0]?.close.toFixed(2);
 
@@ -114,7 +123,7 @@ const WatchListChart: React.FC<any> = ({ ticker, data, isCustomizing }) => {
                         {ticker}
                     </div>
                     <div className="text-black text-xs">
-                        Name of Stock
+                        {cut_str(data.name, companyNameLength)}
                     </div>
                 </div>
                 <ReactApexChart
