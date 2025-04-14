@@ -127,7 +127,6 @@ async def get_watchlist(
         async def get_ticker_info(ticker):
             try:
                 details = client.get_ticker_details(ticker)
-                print(details, "DETAILS")
                 return {
                     "name": details.name,
                 }

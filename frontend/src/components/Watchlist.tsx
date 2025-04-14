@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import WatchListChart from './WatchlistChart';
 import WatchlistService from '../services/WatchlistService';
-import WatchlistData from '../interfaces/WatchlistData';
 import TickerDropdown from './TickerDropdownItem';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
@@ -81,7 +80,7 @@ const WatchList: React.FC = () => {
 
     return (
         <div>
-            <div ref={ref} className='flex-col justify-items-start w-sm bg-white border-1 border-solid border-gray-200 border-b-0 p-4'>
+            <div ref={ref} className='flex-col justify-items-start w-sm p-4'>
                 {isCustomizing && !isSearchingTicker ? (
                     <div className='flex justify-between items-center w-full p-2'>
                         <div onClick={handleSearchTicker} className='flex items-center justify-center gap-4 cursor-pointer'>
@@ -130,7 +129,7 @@ const WatchList: React.FC = () => {
                 )}
                 <div className="w-full flex justify-center">
                     {!isCustomizing && !isSearchingTicker && (
-                        <button onClick={handleCustomizeWatchlist} className="w-80 cursor-pointer  bg-white text-sm hover:bg-gray-50 text-gray-800 font-semibold py-2 mt-4 rounded-full px-4 border border-solid">
+                        <button onClick={handleCustomizeWatchlist} className="w-80 cursor-pointer bg-white text-sm hover:bg-gray-50 text-gray-800 font-semibold py-2 mt-4 rounded-full px-4 border-2 border-solid">
                             <div className='flex items-center justify-center gap-x-3'>
                                 <div>
                                     Customize Watchlist
