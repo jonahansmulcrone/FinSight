@@ -1,14 +1,10 @@
-import { useState } from "react";
 import DashboardNavProps from "../../interfaces/DashboardNavProps";
 
 const DashboardNav: React.FC<DashboardNavProps> = ({ handleSwitchPanel, currentPanel }) => {
-
-    const [activePanel, setActivePanel] = useState('Overview');
-    const panels = ['Overview', 'Risk', 'Performance', 'Sentiment']
+    const panels = ['Overview', 'Risk', 'Performance', 'Sentiment', 'Backtesting']
 
     return (
         <div className='mt-10 relative'>
-            {/* Panel nav */}
             <div className='flex flex-row gap-10 mb-3 relative z-10'>
                 {panels.map((panel, index) => (
                     <div

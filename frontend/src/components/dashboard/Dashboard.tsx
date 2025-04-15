@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DashboardNav from "./DashboardNav";
-import OverviewPanel from "./sections/OverviewPanel";
-import RiskPanel from "./sections/RiskPanel";
+import OverviewPanel from "./sections/overview/OverviewPanel";
+import RiskPanel from "./sections/risk/RiskPanel";
 
 const Dashboard: React.FC = () => {
     const [currentPanel, setCurrentPanel] = useState('Overview');
@@ -25,7 +25,9 @@ const Dashboard: React.FC = () => {
                         Tesla Inc.
                     </div>
                     <div>
-                        <button className='hover:bg-gray-50 border-2 cursor-pointer text-sm rounded-full py-1 px-3'>Watch (+)</button>
+                        <button className='hover:bg-gray-50 gap-1 flex items-center justify-center border-2 cursor-pointer text-md rounded-full py-1.5 px-5'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                        </svg>Watch</button>
                     </div>
                 </div>
             </div>
