@@ -179,6 +179,7 @@ async def get_market_movers(
     multiplier: int = 1,
     limit: int = 1000
 ):
+    alpha_api_key = os.getenv("ALPHA_API_KEY")
     #cache = r.get('user_1_market_movers')
 
     if False:
@@ -192,7 +193,7 @@ async def get_market_movers(
     else:
         try:
             # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
-            url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=owssSwJfcKGRab18r_eK'
+            url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={alpha_api_key}'
             r = requests.get(url)
             data = r.json()
             gainers = data["top_gainers"][:5]
