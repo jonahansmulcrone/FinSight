@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers.overview import overview_router
+from fastapi.exceptions import ResponseValidationError
 import httpx
 import json
 import redis
@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from polygon import RESTClient
+import requests
 
 load_dotenv()
 
@@ -32,6 +33,11 @@ class WatchlistDataResponse(BaseModel):
     status: str
     requested_date_range: str
     tickers: Dict[str, Any]
+
+class GainersLosersDataResponse(BaseModel):
+    status: str
+    gainers: list[Any]
+    losers: list[Any]
 
 @app.get("/api/v1/batch_watchlist", response_model=WatchlistDataResponse)
 async def get_watchlist(
@@ -163,3 +169,41 @@ async def get_watchlist(
             requested_date_range=f"{start_date} to {end_date}",
             tickers=results,
         )
+    
+
+@app.get("/api/v1/batch_market_movers", response_model=GainersLosersDataResponse)
+async def get_market_movers(
+    tickers: str = "AAPL,MSFT,NVDA,GOOG,GOOGL,META,TSLA,AMD,INTC,ORCL",
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    multiplier: int = 1,
+    limit: int = 1000
+):
+    #cache = r.get('user_1_market_movers')
+
+    if False:
+        print('cache hit')
+        cached_data = json.loads(cache)
+        return WatchlistDataResponse(
+        status="success",
+        requested_date_range=f"{start_date} to {end_date}",
+        tickers=cached_data,
+        )
+    else:
+        try:
+            # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+            url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=owssSwJfcKGRab18r_eK'
+            r = requests.get(url)
+            data = r.json()
+            gainers = data["top_gainers"][:5]
+            losers = data["top_losers"][:5]
+            print(gainers)
+        except ResponseValidationError as e:
+            print("error here")
+        return GainersLosersDataResponse(
+            status="success",
+            gainers=gainers,
+            losers=losers
+        )
+
+        
