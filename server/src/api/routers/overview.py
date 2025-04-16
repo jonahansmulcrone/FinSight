@@ -1,17 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException
-from server.src.api.dependencies import get_overview_service
-from src.schemas import StockOverview
-from src.services.overview_service import OverviewService
+from ..dependencies import get_overview_service
+from services.overview_service import OverviewService
+from providers.yfinance_provider import YahooFinanceProvider
 
-router = APIRouter(
+# Grouping path operations using APIRouter Class.
+
+overview_router = APIRouter(
     prefix="/overview",
     tags=["overview"],
 )
 
-@router.get("/{ticker}", response_model=StockOverview)
+@overview_router.get("/{ticker}")
 async def get_company_overview(
     ticker: str,
     overview_service: OverviewService = Depends(get_overview_service)
 ):
-    pass
-    
+    data = await overview_service.get_overview_info(ticker=ticker)
+    print("DATA", data)
+    return data

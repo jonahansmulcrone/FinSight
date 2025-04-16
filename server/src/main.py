@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from api.routers.overview import overview_router
 import httpx
 import json
 import redis
@@ -14,6 +15,7 @@ from polygon import RESTClient
 load_dotenv()
 
 app = FastAPI()
+app.include_router(overview_router)
 pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
 r = redis.Redis(connection_pool=pool)
 
