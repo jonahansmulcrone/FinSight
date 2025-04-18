@@ -10,5 +10,8 @@ class OverviewService:
         Get comprehensive trading data for a given company.
         """
         
-        overview_info = await self.market_data_provider.get_overview_info(ticker)
-        return overview_info
+        try:
+            overview_info = await self.market_data_provider.get_overview_info(ticker)
+            return overview_info
+        except Exception as e:
+            return {"error": str(e)}
