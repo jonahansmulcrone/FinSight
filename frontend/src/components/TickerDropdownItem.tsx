@@ -1,4 +1,4 @@
-import TickerDropdownItemProps from "../interfaces/TickerDropdownItemProps";
+import TickerDropdownItemProps from "../utils/interfaces/TickerDropdownItemProps";
 
 const TickerDropdownItem: React.FC<TickerDropdownItemProps> = ({ ticker, handleAddTicker }) => {
     return (

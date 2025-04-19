@@ -1,17 +1,17 @@
 from typing import Dict, Any, Optional
 from providers.market_data_provider import MarketDataProvider
 
-class OverviewService:
+class DashboardService:
     def __init__(self, market_data_provider: MarketDataProvider):
         self.market_data_provider = market_data_provider
 
-    async def get_trading_info(self, ticker: str) -> Any:
+    async def get_company_info(self, ticker: str) -> Any:
         """
-        Get comprehensive trading data for a given company.
+        Get high-level company data for a given ticker.
         """
-        
+                
         try:
-            overview_info = await self.market_data_provider.get_trading_info(ticker)
-            return overview_info
+            company_info = await self.market_data_provider.get_company_info(ticker)
+            return company_info
         except Exception as e:
             return {"error": str(e)}

@@ -1,4 +1,4 @@
-import ContentProps from "../interfaces/ContentProps";
+import ContentProps from "../utils/interfaces/ContentProps";
 
 const Content: React.FC<ContentProps> = ({ children }) => {
     return (

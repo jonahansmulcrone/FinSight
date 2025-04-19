@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import WatchListChart from './WatchlistChart';
 import WatchlistService from '../services/WatchlistService';
-import TickerDropdown from './TickerDropdownItem';
+import TickerDropdownItem from './TickerDropdownItem';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const WatchList: React.FC = () => {
@@ -17,7 +17,6 @@ const WatchList: React.FC = () => {
         const fetchData = async () => {
             try {
                 const data = await WatchlistService.fetchWatchlist()
-                console.log(data)
                 setWatchlistItems(data)
             } catch (error) {
                 console.log(`Error fetching watchlist data: ${error}.`)
@@ -69,13 +68,6 @@ const WatchList: React.FC = () => {
     }
 
     const handleAddTicker = (ticker: string) => {
-        const tickersLength = Object.keys(watchlistItems.tickers).length
-        if (tickersLength >= 5) {
-            setError('Maximum number of Watchlist Items reached.')
-            setTimeout(() => {
-                setError('')
-            }, 5000)
-        }
     }
 
     return (
@@ -108,7 +100,7 @@ const WatchList: React.FC = () => {
                             <div className='absolute top-full left-0 w-full bg-white border-t-1 border-gray-100 z-50'>
                                 <div className='border-t-1 border-gray-100'></div>
                                 {filteredTickers.map((ticker) =>
-                                    <TickerDropdown ticker={ticker} handleAddTicker={handleAddTicker} />
+                                    <TickerDropdownItem ticker={ticker} handleAddTicker={handleAddTicker} />
                                 )}
 
                                 <div className='drop-shadow-lg border-b-1 rounded-b-2xl h-5'>

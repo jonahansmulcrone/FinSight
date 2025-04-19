@@ -5,30 +5,47 @@ from providers.market_data_provider import MarketDataProvider
 import asyncio
 
 class YahooFinanceProvider(MarketDataProvider):
-    async def get_overview_info(self, ticker) -> Any:
+    async def get_trading_info(self, ticker) -> Any:
         
         try:
-            info = await asyncio.to_thread(lambda: yf.Ticker(ticker).info)
+            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).response)
 
-            if not info:
+            if not response:
                 return {"error": "No data returned"}
             
             result = {
-                "Previous Close": info["previousClose"],
-                "Open": info["open"],
-                "Day's Range": {info['dayHigh']} - {info['dayLow']},
-                "52-Week Range": f"{info['fiftyTwoWeekLow']} - {info['fiftyTwoWeekHigh']}",
-                "Market Cap": info["marketCap"],
-                "Enterprise Value": info["enterpriseValue"],
-                "Beta (5Y Monthly)": info["beta"],
-                "Forward Dividend Yield": f"{info['dividendRate']} ({round(info['dividendYield'] * 100, 2)}%)",
-                "Bid": info["bid"],
-                "Ask": info["ask"],
-                "Volume": info["volume"],
-                "EPS (TTM)": info["trailingEps"]
+                "Previous Close": response["previousClose"],
+                "Open": response["open"],
+                "Day's Range": {response['dayHigh']} - {response['dayLow']},
+                "52-Week Range": f"{response['fiftyTwoWeekLow']} - {response['fiftyTwoWeekHigh']}",
+                "Market Cap": response["marketCap"],
+                "Enterprise Value": response["enterpriseValue"],
+                "Beta (5Y Monthly)": response["beta"],
+                "Forward Dividend Yield": f"{response['dividendRate']} ({round(response['dividendYield'] * 100, 2)}%)",
+                "Bid": response["bid"],
+                "Ask": response["ask"],
+                "Volume": response["volume"],
+                "EPS (TTM)": response["trailingEps"]
             }
 
             return result
 
         except Exception as e:
             return {"error": str(e)}
+        
+    async def get_company_info(self, ticker) -> Any:
+        try:
+            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).basic_info)
+
+            if not response:
+                return {"error": "No data returned"}
+            
+            result = { 
+
+            }
+
+            print(response)
+
+        except Exception as e:
+            return {"error": str(e)}
+            

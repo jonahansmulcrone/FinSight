@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import OverviewService from "../../../../services/OverviewService";
-import TradingInfoData from "../../../../interfaces/TradingInfoData";
+import TradingInfoData from "../../../../utils/interfaces/TradingInfoData";
+import { useCompanyContext } from "../../../../hooks/useCompanyContext";
 
 const TradingInfo: React.FC = () => {
-    const data = ["Previous Close", "Day's Range", "Market Cap", "Enterprise Value", "Open", "52-Week Range", "Beta (5Y Monthly)", "Forward Dividend Yield", "Bid", "Ask", "Volume", "EPS (TTM)"]
+    const { ticker } = useCompanyContext();
 
     const [tradingInfo, setTradingInfo] = useState<TradingInfoData>()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await OverviewService.getTradingInfo('AAPL');
+                const data = await OverviewService.getTradingInfo(ticker);
                 console.log(data)
                 setTradingInfo(data);
             } catch (error) {
@@ -19,7 +20,7 @@ const TradingInfo: React.FC = () => {
         }
 
         fetchData();
-    }, [])
+    }, [ticker])
 
     return (
         <div className='flex flex-col gap-8 justify-start items-start select-none'>

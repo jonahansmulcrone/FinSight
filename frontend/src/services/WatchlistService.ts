@@ -21,7 +21,7 @@ class WatchlistService {
 
     async filterTickerDropdown(ticker: string) {
         try {
-            const response = await fetch(``);
+            const response = await fetch(`${ticker}`);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`)
             }

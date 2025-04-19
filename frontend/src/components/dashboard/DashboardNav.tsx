@@ -1,4 +1,4 @@
-import DashboardNavProps from "../../interfaces/DashboardNavProps";
+import DashboardNavProps from "../../utils/interfaces/DashboardNavProps";
 
 const DashboardNav: React.FC<DashboardNavProps> = ({ handleSwitchPanel, currentPanel }) => {
     const panels = ['Overview', 'Risk', 'Performance', 'Sentiment', 'Backtesting']
