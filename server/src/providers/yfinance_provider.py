@@ -8,7 +8,7 @@ class YahooFinanceProvider(MarketDataProvider):
     async def get_trading_info(self, ticker) -> Any:
         
         try:
-            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).response)
+            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).info)
 
             if not response:
                 return {"error": "No data returned"}
@@ -35,16 +35,16 @@ class YahooFinanceProvider(MarketDataProvider):
         
     async def get_company_info(self, ticker) -> Any:
         try:
-            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).basic_info)
+            response = await asyncio.to_thread(lambda: yf.Ticker(ticker).info)
 
             if not response:
                 return {"error": "No data returned"}
             
             result = { 
-
+                "companyName": response["shortName"]
             }
 
-            print(response)
+            return result
 
         except Exception as e:
             return {"error": str(e)}
