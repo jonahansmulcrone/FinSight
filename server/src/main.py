@@ -12,11 +12,12 @@ from dotenv import load_dotenv
 import asyncio
 from polygon import RESTClient
 import requests
+#import overview_router from 
 
 load_dotenv()
 
 app = FastAPI()
-app.include_router(overview_router)
+#app.include_router(overview_router)
 pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
 r = redis.Redis(connection_pool=pool)
 
