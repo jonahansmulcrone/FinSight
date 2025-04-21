@@ -32,7 +32,7 @@ const MarketMoverItem : React.FC<MarketMoverProps> = ({data}) => {
                         </div>
                         <div className={`text-xs font-semibold ${priceChangeColor}`}>
                             ${data.change_amount} (
-                            {data.change_percentage}%)
+                            {data.change_percentage})
                         </div>
                     </div>
                 </div>
