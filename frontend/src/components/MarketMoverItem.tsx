@@ -1,4 +1,4 @@
-import MarketMoverProps from "../interfaces/MarketMoverProps"
+import MarketMoverProps from "../utils/interfaces/MarketMoverProps"
 
 const MarketMoverItem : React.FC<MarketMoverProps> = ({data}) => {
 
