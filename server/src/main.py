@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import ResponseValidationError
 from api.routers.overview import overview_router
 from api.routers.dashboard import dashboard_router
 import httpx
@@ -12,12 +13,21 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from polygon import RESTClient
+import requests
+#import overview_router from 
 
 load_dotenv()
 
 app = FastAPI()
-app.include_router(overview_router)
-app.include_router(dashboard_router)
+#app.include_router(overview_router)
+pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
+r = redis.Redis(connection_pool=pool)
+
+class APITimeoutException(Exception):
+    def __init__(self, api:str):
+        self.message = f"{api} api has timed out or reached the rate limit"
+        super().__init__(self.message)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,6 +41,11 @@ class WatchlistDataResponse(BaseModel):
     status: str
     requested_date_range: str
     tickers: Dict[str, Any]
+
+class GainersLosersDataResponse(BaseModel):
+    status: str
+    gainers: list[Any]
+    losers: list[Any]
 
 @app.get("/api/v1/batch_watchlist", response_model=WatchlistDataResponse)
 async def get_watchlist(
@@ -162,3 +177,41 @@ async def get_watchlist(
             requested_date_range=f"{start_date} to {end_date}",
             tickers=results,
         )
+    
+
+@app.get("/api/v1/batch_market_movers", response_model=GainersLosersDataResponse)
+async def get_market_movers():
+    alpha_api_key = os.getenv("ALPHA_API_KEY")
+    #cache = r.get('user_1_market_movers')
+    try:
+        # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+        url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={alpha_api_key}'
+        r = requests.get(url)
+        data = r.json()
+        if "Information" in data:
+            raise APITimeoutException("alpha")
+        gainers = data["top_gainers"][:5]
+        losers = data["top_losers"][:5]
+    # TODO: add better error handling
+    except APITimeoutException as e:
+        print(e)
+        return GainersLosersDataResponse(
+            status=f"error, {e}",
+            gainers=[],
+            losers=[]
+        )
+
+    except Exception as e:
+        print(e)
+        return GainersLosersDataResponse(
+            status="error",
+            gainers=[],
+            losers=[]
+        )
+    return GainersLosersDataResponse(
+        status="success",
+        gainers=gainers,
+        losers=losers
+    )
+
+        
