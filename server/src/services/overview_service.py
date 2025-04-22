@@ -1,9 +1,11 @@
-from typing import Dict, Any, Optional
-from providers.market_data_provider import MarketDataProvider
+from typing import Any
+from providers.yfinance_provider import YahooFinanceProvider
+from providers.finnhub_provider import FinnhubProvider
 
 class OverviewService:
-    def __init__(self, market_data_provider: MarketDataProvider):
-        self.market_data_provider = market_data_provider
+    def __init__(self, yfinance: YahooFinanceProvider, finnhub: FinnhubProvider):
+        self.yfinance = yfinance
+        self.finnhub = finnhub
 
     async def get_trading_info(self, ticker: str) -> Any:
         """
@@ -11,7 +13,7 @@ class OverviewService:
         """
         
         try:
-            overview_info = await self.market_data_provider.get_trading_info(ticker)
+            overview_info = await self.yfinance.get_trading_info(ticker)
             return overview_info
         except Exception as e:
             return {"error": str(e)}

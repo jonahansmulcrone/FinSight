@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Depends
-from services.dashboard_service import DashboardService
-from ..dependencies import get_overview_service, get_dashboard_service
+from ..dependencies import get_overview_service
 from services.overview_service import OverviewService
-
-# Grouping path operations using APIRouter Class.
 
 overview_router = APIRouter(
     prefix="/overview",
@@ -20,17 +17,4 @@ async def get_trading_overview(
         data = await overview_service.get_trading_info(ticker=ticker)
         return data
     except Exception as e:
-        return {"error": str(e)}
-    
-@overview_router.get("/dashboard/{ticker}")
-async def get_company_info(
-    ticker: str,
-    dashboard_service: DashboardService = Depends(get_dashboard_service)
-):
-    
-    try:
-        data = await dashboard_service.get_company_info(ticker=ticker)
-        return data
-    except Exception as e:
-        return {"error": str(e)}
-         
+        return {"error": str(e)}   

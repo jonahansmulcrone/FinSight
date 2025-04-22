@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers.overview import overview_router
+from api.routers.dashboard import dashboard_router
 import httpx
 import json
-import redis
+from redis_connection import r
 from datetime import date, datetime, timedelta
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
@@ -16,9 +17,7 @@ load_dotenv()
 
 app = FastAPI()
 app.include_router(overview_router)
-pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
-r = redis.Redis(connection_pool=pool)
-
+app.include_router(dashboard_router)
 
 app.add_middleware(
     CORSMiddleware,

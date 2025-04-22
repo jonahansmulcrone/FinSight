@@ -11,10 +11,10 @@ const App: React.FC = () => {
   return (
     <CompanyContextProvider>
       <div className='h-screen overflow-x-hidden'>
-        <Header />
         <div className='flex flex-row justify-between overflow-hidden'>
           <LeftSidebar />
           <Content>
+            <Header />
             <Dashboard />
           </Content>
           <RightSidebar />

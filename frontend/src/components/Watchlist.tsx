@@ -112,7 +112,7 @@ const WatchList: React.FC = () => {
                         )}
                     </div>
                 ) : (
-                    <div className='p-2 text-black font-semibold text-sm'>Watchlist</div>
+                    <div className='p-2 text-black font-semibold text-md'>Watchlist</div>
                 )}
                 {watchlistItems && (
                     Object.entries(watchlistItems.tickers).map(([tickerName, tickerData]) => (

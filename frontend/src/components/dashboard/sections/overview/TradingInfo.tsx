@@ -12,10 +12,9 @@ const TradingInfo: React.FC = () => {
         const fetchData = async () => {
             try {
                 const data = await OverviewService.getTradingInfo(ticker);
-                console.log(data)
                 setTradingInfo(data);
             } catch (error) {
-                throw new Error()
+                console.log(`Error fetching watchlist data: ${error}.`)
             }
         }
 

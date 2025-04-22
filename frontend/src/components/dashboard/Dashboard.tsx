@@ -12,18 +12,18 @@ const Dashboard: React.FC = () => {
         setCurrentPanel(panel);
     };
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await DashboardService.getCompanyInfo(ticker);
-    //             setCompanyName(response)
-    //         } catch (error) {
-    //             console.log(`Error fetching watchlist data: ${error}.`)
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await DashboardService.getCompanyInfo(ticker);
+                setCompanyName(response)
+            } catch (error) {
+                console.log(`Error fetching watchlist data: ${error}.`)
+            }
+        };
 
-    //     fetchData();
-    // }, [ticker]);
+        fetchData();
+    }, [ticker]);
 
     const sectionsMap: Record<string, React.ReactNode> = {
         Overview: <OverviewPanel />,
@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className='flex flex-row justify-between items-center'>
                     <div>
-                        TSLA
+                        {companyName}
                     </div>
                     <div>
                         <button className='hover:bg-gray-50 gap-1 flex items-center justify-center border-2 cursor-pointer text-md rounded-full py-1.5 px-5'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">

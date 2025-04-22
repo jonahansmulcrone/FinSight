@@ -1,10 +1,8 @@
-from functools import partial
 import yfinance as yf
 from typing import Dict, Any
-from providers.market_data_provider import MarketDataProvider
 import asyncio
 
-class YahooFinanceProvider(MarketDataProvider):
+class YahooFinanceProvider():
     async def get_trading_info(self, ticker) -> Any:
         
         try:

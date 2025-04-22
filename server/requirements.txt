@@ -9,6 +9,7 @@ dnspython==2.7.0
 email_validator==2.2.0
 fastapi==0.115.11
 fastapi-cli==0.0.7
+finnhub-python==2.4.23
 frozendict==2.4.6
 h11==0.14.0
 httpcore==1.0.7
