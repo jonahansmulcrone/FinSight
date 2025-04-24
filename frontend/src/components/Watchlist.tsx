@@ -68,6 +68,7 @@ const WatchList: React.FC = () => {
     }
 
     const handleAddTicker = (ticker: string) => {
+        {/* Todo: Allows users to customize watchlist items. */}
     }
 
     return (
@@ -134,6 +135,8 @@ const WatchList: React.FC = () => {
                     )}
                 </div>
             </div>
+            {/* LeftSidebar Item Border */}
+            <div className='border-b border-b-gray-200 mt-5' />
         </div>
     )
 }

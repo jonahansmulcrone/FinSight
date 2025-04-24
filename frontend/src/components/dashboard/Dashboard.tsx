@@ -8,6 +8,7 @@ import DashboardService from "../../services/DashboardService";
 const Dashboard: React.FC = () => {
     const [currentPanel, setCurrentPanel] = useState('Overview');
     const { ticker, companyName, setCompanyName } = useCompanyContext();
+    
     const handleSwitchPanel = (panel: string) => {
         setCurrentPanel(panel);
     };
