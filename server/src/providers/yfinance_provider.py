@@ -12,18 +12,19 @@ class YahooFinanceProvider():
                 return {"error": "No data returned"}
             
             result = {
-                "Previous Close": response["previousClose"],
-                "Open": response["open"],
-                "Day's Range": {response['dayHigh']} - {response['dayLow']},
-                "52-Week Range": f"{response['fiftyTwoWeekLow']} - {response['fiftyTwoWeekHigh']}",
-                "Market Cap": response["marketCap"],
-                "Enterprise Value": response["enterpriseValue"],
-                "Beta (5Y Monthly)": response["beta"],
-                "Forward Dividend Yield": f"{response['dividendRate']} ({round(response['dividendYield'] * 100, 2)}%)",
-                "Bid": response["bid"],
-                "Ask": response["ask"],
-                "Volume": response["volume"],
-                "EPS (TTM)": response["trailingEps"]
+                "Previous Close": response.get("previousClose", "NaN") or "NaN",
+                "Open": response.get("open", "NaN"),
+                "Day's Range": f"{response.get('dayHigh', 'NaN')} - {response.get('dayLow', 'NaN')}",
+                "52-Week Range": f"{response.get('fiftyTwoWeekLow', 'NaN')} - {response.get('fiftyTwoWeekHigh', 'NaN')}",
+                "Market Cap": response.get("marketCap", "NaN"),
+                "Enterprise Value": response.get("enterpriseValue", "NaN"),
+                "Beta (5Y Monthly)": response.get("beta", "NaN"),
+                "Forward Dividend Yield": f"{response.get('dividendRate', 'NaN')} ({round(response.get('dividendYield', 0) * 100, 2)}%)"
+                    if response.get('dividendYield') is not None else "NaN",
+                "Bid": response.get("bid", "NaN"),
+                "Ask": response.get("ask", "NaN"),
+                "Volume": response.get("volume", "NaN"),
+                "EPS (TTM)": response.get("trailingEps", "NaN")
             }
 
             return result

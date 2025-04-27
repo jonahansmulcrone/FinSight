@@ -33,8 +33,8 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className='w-full'>
-            <div className='flex flex-col gap-1'>
-                <div className='flex items-start text-3xl font-bold '>
+            <div className='flex flex-col'>
+                <div className='flex items-start text-3xl font-bold'>
                     {ticker}
                 </div>
                 <div className='flex flex-row justify-between items-center'>

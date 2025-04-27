@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import OverviewService from "../../../../services/OverviewService";
 import TradingInfoData from "../../../../utils/interfaces/TradingInfoData";
 import { useCompanyContext } from "../../../../hooks/useCompanyContext";
+import formatCurrency from '../../../../utils/currencyFormatter';
 
 const TradingInfo: React.FC = () => {
     const { ticker } = useCompanyContext();
@@ -36,8 +37,8 @@ const TradingInfo: React.FC = () => {
                                     {item[0]}
                                 </div>
                                 {/* Info Value */}
-                                <div className='font-semibold'>
-                                    ${item[1]}
+                                <div className='font-medium'>
+                                {item[1] !== 'NaN' ? formatCurrency(item[1]) : '--'}
                                 </div>
                             </div>
                             <div className='w-full h-[1px] bg-gray-200' />
