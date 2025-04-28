@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+@import "flowbite/src/themes/default";
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
